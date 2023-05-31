@@ -9,7 +9,7 @@ yum install redis -y  &>>/tmp/roboshop.log
 
 #edit config file
 echo -e "\e[32m updating redis ip address \e[0m"
-sed -i 's/127.0.0.1/0.0.0.0' /etc/redis.conf  /etc/redis/redis.conf &>>/tmp/roboshop.log
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis.conf  /etc/redis/redis.conf &>>/tmp/roboshop.log
 
 echo -e "\e[32m start redis serviceserver\e[0m"
 systemctl enable redis &>>/tmp/roboshop.log
