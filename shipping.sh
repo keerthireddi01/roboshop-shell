@@ -16,8 +16,7 @@ cd /app
 unzip /tmp/shipping.zip  &>>/tmp/roboshop.log
 
 echo -e "\e[31m download maven dependncies\e[0m" 
-cd /app
-mvn clean package   &>>/tmp/roboshop.log
+mvn clean package  &>>/tmp/roboshop.log
 mv target/shipping-1.0.jar shipping.jar   &>>/tmp/roboshop.log
 
 
@@ -28,7 +27,7 @@ echo -e "\e[31m load schema \e[0m"
 mysql -h mysql-dev.keedev.store -uroot -pRoboShop@1 < /app/schema/shipping.sql  &>>/tmp/roboshop.log
 
 echo -e "\e[31m setup systemd file\e[0m"
-cp /home/centos/roboshop-shell/shipping.service  /etc/systemd/system/shipping.service &>>/tmp/roboshop.log
+cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service  &>>/tmp/roboshop.log
 
 echo -e "\e[31m start shipping service\e[0m"
 systemctl daemon-reload  &>>/tmp/roboshop.log
