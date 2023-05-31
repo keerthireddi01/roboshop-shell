@@ -5,7 +5,7 @@ echo -e "\e[32m copy mysql repo file\e[0m"
 cp /home/centos/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo &>>/tmp/roboshop.log
 
 echo -e "\e[32minstalling rd server\e[0m"
-yum install rd-community-server -y &>>/tmp/roboshop.log
+yum install mysql-community-server -y &>>/tmp/roboshop.log
 
 echo -e "\e[32m start rd service server\e[0m"
 systemctl enable mysqld &>>/tmp/roboshop.log
