@@ -12,4 +12,4 @@ systemctl enable mysqld &>>/tmp/roboshop.log
 systemctl restart mysqld   &>>/tmp/roboshop.log
 
 echo -e "\e[32m setup rd\e[0m"
-rd -uroot -pRoboShop@1 &>>/tmp/roboshop.log
+mysql -uroot -pRoboShop@1 &>>/tmp/roboshop.log
