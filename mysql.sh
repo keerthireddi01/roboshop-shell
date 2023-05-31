@@ -12,4 +12,5 @@ systemctl enable mysqld &>>/tmp/roboshop.log
 systemctl restart mysqld   &>>/tmp/roboshop.log
 
 echo -e "\e[32m setup rd\e[0m"
-mysql -uroot -pRoboShop@1 &>>/tmp/roboshop.log
+mysql_secure_installation --set-root-pass RoboShop@1
+#mysql -uroot -pRoboShop@1 &>>/tmp/roboshop.log
