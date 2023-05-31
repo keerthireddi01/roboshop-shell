@@ -1,5 +1,5 @@
 echo -e "\e[32m disable myql default version server\e[0m"
-yum module disable rd -y  &>>/tmp/roboshop.log
+yum module disable mysql -y  &>>/tmp/roboshop.log
 
 echo -e "\e[32m copy mysql repo file\e[0m"
 cp /home/centos/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo &>>/tmp/roboshop.log
