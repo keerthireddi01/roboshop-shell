@@ -12,6 +12,9 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>/tmp/roboshop.log
 
 #you need to congif the files
+echo -e "\e[31mupdate  frontend configuration\e[0m"
+cp roboshop.conf /etc/nginx/default.d/roboshop.conf
+
 echo -e "\e[31mrestarting nginx server\e[0m"
 systemctl enable nginx  &>>/tmp/roboshop.log
 systemctl restart nginx  &>>/tmp/roboshop.log
