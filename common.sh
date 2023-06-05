@@ -9,7 +9,7 @@ app_presetup() {
  if [ $? -eq 1 ]; then
   useradd roboshop &>>${log_file}
  fi
- 
+
  if [ $? -eq 0 ]; then
    echo SUCCESS
  else
@@ -39,7 +39,11 @@ app_presetup() {
  echo -e "${color} extract aplication content ${nocolor}"
  cd ${app_path} 
  unzip /tmp/$component.zip &>>${log_file}
- echo $?
+  if [ $? -eq 0 ]; then
+   echo SUCCESS
+ else
+   echo FAILURE
+ fi 
 }
 
 systemd_setup() {
