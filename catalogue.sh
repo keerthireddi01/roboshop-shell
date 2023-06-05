@@ -1,5 +1,5 @@
 component=catalogue
-color="\e[31"
+color="\e[36"
 nocolor="\e[0m"
 echo -e "${color}configuring nodejxss repos ${nocolor}"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/roboshop.log
