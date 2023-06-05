@@ -1,35 +1,38 @@
-echo -e "\e[31m install maven\e[0m"
-yum install maven -y  &>>/tmp/roboshop.log
+source common.sh
+component=shipping
 
-echo -e "\e[31m adding application user\e[0m"
-useradd roboshop  &>>/tmp/roboshop.log
+echo -e "${color} install maven${nocolor}"
+yum install maven -y  &>>${log_file}
 
-echo -e "\e[31m creating application directory\e[0m"
-rm -rf /app  &>>/tmp/roboshop.log
-mkdir /app  
+echo -e "${color} adding application user${nocolor}"
+useradd roboshop  &>>${log_file}
 
-echo -e "\e[31m download application content\e[0m"
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip   &>>/tmp/roboshop.log
+echo -e "${color} creating application directory${nocolor}"
+rm -rf ${app_path}&>>${log_file}
+mkdir ${app_path}
 
-echo -e "\e[31m extract application content\e[0m"
+echo -e "${color} download application content${nocolor}"
+curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip   &>>${log_file}
+
+echo -e "${color} extract application content${nocolor}"
 cd /app
-unzip /tmp/shipping.zip  &>>/tmp/roboshop.log
+unzip /tmp/${component}.zip  &>>${log_file}
 
-echo -e "\e[31m download maven dependncies\e[0m" 
-mvn clean package  &>>/tmp/roboshop.log
-mv target/shipping-1.0.jar shipping.jar   &>>/tmp/roboshop.log
+echo -e "${color} download maven dependncies${nocolor}" 
+mvn clean package  &>>${log_file}
+mv target/${component}-1.0.jar ${component}.jar   &>>${log_file}
 
 
-echo -e "\e[31m install mysql client\e[0m"
-yum install mysql -y  &>>/tmp/roboshop.log
+echo -e "${color} install mysql client${nocolor}"
+yum install mysql -y  &>>${log_file}
 
-echo -e "\e[31m load schema \e[0m"
-mysql -h mysql-dev.keedev.store -uroot -pRoboShop@1 < /app/schema/shipping.sql  &>>/tmp/roboshop.log
+echo -e "${color} load schema ${nocolor}"
+mysql -h mysql-dev.keedev.store -uroot -pRoboShop@1 < /app/schema/${component}.sql  &>>${log_file}
 
-echo -e "\e[31m setup systemd file\e[0m"
-cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service  &>>/tmp/roboshop.log
+echo -e "${color} setup systemd file${nocolor}"
+cp /home/centos/roboshop-shell/${component}.service /etc/systemd/system/${component}.service  &>>${log_file}
 
-echo -e "\e[31m start shipping service\e[0m"
-systemctl daemon-reload  &>>/tmp/roboshop.log
-systemctl enable shipping  &>>/tmp/roboshop.log
-systemctl restart shipping &>>/tmp/roboshop.log
+echo -e "${color} start ${component} service${nocolor}"
+systemctl daemon-reload  &>>${log_file}
+systemctl enable ${component}  &>>${log_file}
+systemctl restart ${component} &>>${log_file}
