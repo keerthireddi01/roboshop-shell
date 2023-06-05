@@ -1,10 +1,10 @@
 component=catalogue
 color="\e[36"
 nocolor="\e[0m"
-echo -e "${color}configuring nodejxss repos ${nocolor}"
+echo -e "${color} configuring nodejxss repos ${nocolor}"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>/tmp/roboshop.log
 
-echo -e "${color}installing Nodejs ${nocolor}"
+echo -e "${color} installing Nodejs ${nocolor}"
 yum install nodejs -y &>>/tmp/roboshop.log
 
 echo -e "${color} adding application user ${nocolor}"
@@ -37,7 +37,7 @@ systemctl start $component &>>/tmp/roboshop.log
 echo -e "${color} copy mongodb repo file ${nocolor}"
 cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>/tmp/roboshop.log
 
-echo -e "${color}install mongodb client ${nocolor}"
+echo -e "${color} install mongodb client ${nocolor}"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
 
 #schema
