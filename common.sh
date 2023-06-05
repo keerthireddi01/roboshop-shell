@@ -6,7 +6,7 @@ app_path="/app"
 app_presetup() {
   echo -e "${color} adding application user ${nocolor}"
  useradd roboshop &>>${log_file}
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
     echo FAILURE
@@ -16,7 +16,7 @@ app_presetup() {
  echo -e "${color} create application directory ${nocolor}"
  rm -rf ${app_path} &>>${log_file}
  mkdir ${app_path} 
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
    echo FAILURE
@@ -25,7 +25,7 @@ app_presetup() {
 
  echo -e "${color} download application content ${nocolor}"
  curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>${log_file}
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
    echo FAILURE
@@ -44,7 +44,7 @@ systemd_setup() {
  echo -e "${color} setup systemdp service ${nocolor}"
  cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>${log_file}
   
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
    echo FAILURE
@@ -54,7 +54,7 @@ systemd_setup() {
  systemctl daemon-reload &>>${log_file}
  systemctl enable $component  &>>${log_file}
  systemctl start $component &>>${log_file}
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
    echo FAILURE
@@ -69,7 +69,7 @@ nodejs() {
  echo -e "${color} installing Nodejs ${nocolor}"
  yum install nodejs -y &>>${log_file}
  
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
 else
    echo FAILURE
@@ -125,7 +125,7 @@ maven() {
  mysqlshchema_setup
 
  systemd_setup
- if [ $? -eq 0]; then
+ if [ $? -eq 0 ]; then
    echo SUCCESS
  else
    echo FAILURE
@@ -137,7 +137,7 @@ python() {
 
 echo -e "${color} installing python${nocolor}"
 yum install python36 gcc python3-devel -y  &>>${log_file}
-if [ $? -eq 0]; then
+if [ $? -eq 0 ]; then
    echo SUCCESS
 else
    echo FAILURE
@@ -148,7 +148,7 @@ app_presetup
 echo -e "${color} installing app dependencies${nocolor}"
 cd ${app_path}
 pip3.6 install -r requirements.txt   &>>${log_file}
-if [ $? -eq 0]; then
+if [ $? -eq 0 ]; then
    echo SUCCESS
 else
    echo FAILURE
