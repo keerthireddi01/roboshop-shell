@@ -93,3 +93,19 @@ app_presetup
  systemd_setup
 
 }
+
+python() {
+
+echo -e "${color} installing python${nocolor}"
+yum install python36 gcc python3-devel -y  &>>${log_file}
+
+app_presetup
+
+echo -e "${color} installing app dependencies${nocolor}"
+cd ${app_path}
+pip3.6 install -r requirements.txt   &>>${log_file}
+
+#configure
+
+ systemd_setup
+}
