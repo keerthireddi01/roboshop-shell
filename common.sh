@@ -3,6 +3,15 @@ nocolor="\e[0m"
 log_file="/tmp/roboshop.log"
 app_path="/app"
 
+
+stat_check() {
+ if [ $? -eq 0 ]; then
+   echo SUCCESS
+ else
+    echo FAILURE
+ fi  
+
+}
 app_presetup() {
   echo -e "${color} adding application user ${nocolor}"
   id roboshop &>>${log_file}
@@ -10,65 +19,40 @@ app_presetup() {
   useradd roboshop &>>${log_file}
  fi
 
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-    echo FAILURE
- fi      
-
+   stat_check $? 
 
  echo -e "${color} create application directory ${nocolor}"
  rm -rf ${app_path} &>>${log_file}
  mkdir ${app_path} 
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi      
 
+ stat_check $? 
 
  echo -e "${color} download application content ${nocolor}"
  curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>${log_file}
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi      
 
- 
+  stat_check $?     
+
  echo -e "${color} extract aplication content ${nocolor}"
  cd ${app_path} 
  unzip /tmp/$component.zip &>>${log_file}
-  if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi 
-}
 
+  stat_check $? 
+}
 systemd_setup() {
-    
+
  #service file conf
  echo -e "${color} setup systemdp service ${nocolor}"
  cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>${log_file}
   
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi      
+ stat_check $?     
 
  echo -e "${color} start catalogue services ${nocolor}"
  systemctl daemon-reload &>>${log_file}
  systemctl enable $component  &>>${log_file}
  systemctl start $component &>>${log_file}
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi      
-}
 
+ stat_check $? 
+}
 
 nodejs() {
  echo -e "${color} configuring nodejxss repos ${nocolor}"
@@ -77,11 +61,8 @@ nodejs() {
  echo -e "${color} installing Nodejs ${nocolor}"
  yum install nodejs -y &>>${log_file}
  
- if [ $? -eq 0 ]; then
-   echo SUCCESS
-else
-   echo FAILURE
-fi      
+ stat_check $? 
+
  app_presetup
 
  echo -e "${color} Installing nodejs dependencies ${nocolor}"
@@ -133,11 +114,8 @@ maven() {
  mysqlshchema_setup
 
  systemd_setup
- if [ $? -eq 0 ]; then
-   echo SUCCESS
- else
-   echo FAILURE
- fi      
+
+ stat_check  $?   
 
 }
 
@@ -145,23 +123,16 @@ python() {
 
 echo -e "${color} installing python${nocolor}"
 yum install python36 gcc python3-devel -y  &>>${log_file}
-if [ $? -eq 0 ]; then
-   echo SUCCESS
-else
-   echo FAILURE
-fi      
+
+stat_check  $? 
 
 app_presetup
 
 echo -e "${color} installing app dependencies${nocolor}"
 cd ${app_path}
 pip3.6 install -r requirements.txt   &>>${log_file}
-if [ $? -eq 0 ]; then
-   echo SUCCESS
-else
-   echo FAILURE
-fi      
 
+stat_check $? 
 #configure
 
  systemd_setup
