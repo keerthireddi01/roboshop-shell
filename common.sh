@@ -43,7 +43,8 @@ systemd_setup() {
  #service file conf
  echo -e "${color} setup systemdp service ${nocolor}"
  cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>${log_file}
-  
+ sed -i -e "/s/roboshop_app_password/$1" /etc/systemd/system/$component.service
+ 
  stat_check $?     
 
  echo -e "${color} start catalogue services ${nocolor}"
@@ -135,7 +136,7 @@ pip3.6 install -r requirements.txt   &>>${log_file}
 stat_check $? 
 #configure
  
- sed -i -e "/s/roboshop_app_password/$1" /etc/systemd/system/$component.service
+
  stat_check $? 
  systemd_setup
 }
