@@ -14,13 +14,13 @@ stat_check $?
 
 echo -e "${color}start rabbitmq service${nocolor}"
 systemctl enable rabbitmq-server &>>${log_file}
-systemctl start rabbitmq-server &>>${log_file}
+systemctl restart rabbitmq-server &>>${log_file}
 stat_check $?
 
 echo -e "${color}add rabbitmq application user${nocolor}"
 rabbitmqctl add_user roboshop $1  &>>${log_file}
 stat_check $?
  
- echo -e "${color}addset rabbitmq application user${nocolor}"
+echo -e "${color}addset rabbitmq application user${nocolor}"
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${log_file}
 stat_check $?
