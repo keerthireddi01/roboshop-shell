@@ -18,6 +18,6 @@ systemctl start rabbitmq-server &>>${app_path}
 stat_check $?
 
 echo -e "${color}add rabbitmq application user${nocolor}"
-rabbitmqctl add_user roboshop $1 &>>${app_path}
+rabbitmqctl add_user roboshop $1  &>>${app_path}
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${app_path}
 stat_check $?
