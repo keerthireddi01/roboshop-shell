@@ -96,7 +96,7 @@ mysqlshchema_setup() {
  stat_check $? 
 
  echo -e "${color} load schema ${nocolor}"
- mysql -h mysql-dev.keedev.store -uroot -pRoboShop@1 < /app/schema/${component}.sql  &>>${log_file}
+ mysql -h mysql-dev.keedev.store -uroot -p${mysql_root_password} < /app/schema/${component}.sql  &>>${log_file}
  stat_check $? 
 }
 
