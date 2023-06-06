@@ -1,9 +1,4 @@
 source common.sh
-color="\e[35m"
-nocolor="${nocolor}"
-log_file="${log_file}"
-app_path="/app"
-
 
 echo -e "${color}installing nginx server${nocolor}"
 yum install nginx -y  &>>${log_file}
