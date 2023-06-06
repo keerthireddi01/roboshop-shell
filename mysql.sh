@@ -19,5 +19,5 @@ stat_check $?
 
 echo -e "${color} setup mysql${nocolor}"
 mysql_secure_installation --set-root-pass $1  &>>${log_file}
-#mysql -uroot -pRoboShop@1 &>>${log_file}
 stat_check $?
+#mysql -uroot -pRoboShop@1 &>>${log_file}
