@@ -20,6 +20,7 @@ stat_check $?
 echo -e "${color}add rabbitmq application user${nocolor}"
 rabbitmqctl add_user roboshop $1  &>>${log_file}
 stat_check $?
-
+ 
+ echo -e "${color}addset rabbitmq application user${nocolor}"
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${log_file}
 stat_check $?

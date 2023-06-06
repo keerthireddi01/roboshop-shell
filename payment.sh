@@ -8,4 +8,5 @@ if [ -z "$roboshop_app_password" ]; then
  echo "roboshop app passwrod is missing"
  exit 1
 fi 
+
 python

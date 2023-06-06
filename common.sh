@@ -21,7 +21,7 @@ stat_check() {
 app_presetup() {
   echo -e "${color} adding application user ${nocolor}"
   id roboshop &>>${log_file}
- if [ $? -eq 1 ]; then
+  if [ $? -eq 1 ]; then
   useradd roboshop &>>${log_file}
  fi
  stat_check $? 
